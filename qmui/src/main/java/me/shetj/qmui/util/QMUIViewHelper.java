@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package com.qmuiteam.qmui.util;
+package me.shetj.qmui.util;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
@@ -34,10 +35,6 @@ import android.graphics.RectF;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.view.TouchDelegate;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,11 +48,16 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import me.shetj.qmui.R;
 
 /**
  * @author cginechen
@@ -68,7 +70,7 @@ public class QMUIViewHelper {
 
 
     private static final int[] APPCOMPAT_CHECK_ATTRS = {
-            android.support.v7.appcompat.R.attr.colorPrimary
+            R.attr.colorPrimary
     };
 
     public static void checkAppCompatTheme(Context context) {
@@ -597,27 +599,6 @@ public class QMUIViewHelper {
         return Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP;
     }
 
-
-    /**
-     * requestDisallowInterceptTouchEvent 的安全方法。存在它的原因是 QMUIPullRefreshLayout 会拦截这个事件
-     *
-     * @param view
-     * @param value
-     */
-    public static void safeRequestDisallowInterceptTouchEvent(@NonNull View view, boolean value) {
-        ViewParent viewParent = view.getParent();
-        if (viewParent != null) {
-            ViewParent layout = viewParent;
-            while (layout != null) {
-                if (layout instanceof QMUIPullRefreshLayout) {
-                    ((QMUIPullRefreshLayout) layout).openSafeDisallowInterceptTouchEvent();
-                }
-                layout = layout.getParent();
-            }
-            viewParent.requestDisallowInterceptTouchEvent(value);
-        }
-    }
-
     /**
      * 把 ViewStub inflate 之后在其中根据 id 找 View
      *
@@ -647,6 +628,7 @@ public class QMUIViewHelper {
     /**
      * inflate ViewStub 并返回对应的 View。
      */
+    @SuppressLint("ResourceType")
     public static View findViewFromViewStub(View parentView, int viewStubId, int inflatedViewId, int inflateLayoutResId) {
         if (null == parentView) {
             return null;

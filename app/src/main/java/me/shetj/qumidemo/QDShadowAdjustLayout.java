@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-package com.qmuiteam.qmuidemo.view;
+package me.shetj.qumidemo;
 
 import android.content.Context;
-import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.qmuiteam.qmui.layout.QMUIFrameLayout;
-import com.qmuiteam.qmuidemo.R;
+import androidx.customview.widget.ViewDragHelper;
+
+import me.shetj.qmui.layout.QMUIFrameLayout;
+import me.shetj.qumi.R;
+
 
 /**
  * Created by cgspine on 2018/3/22.

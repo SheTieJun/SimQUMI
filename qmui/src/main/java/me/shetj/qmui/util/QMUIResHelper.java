@@ -21,6 +21,7 @@ import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.widget.TextView;
 
@@ -72,10 +73,20 @@ public class QMUIResHelper {
         return null;
     }
 
+    /**
+     * 获取 DisplayMetrics
+     *
+     * @return
+     */
+    public static DisplayMetrics getDisplayMetrics(Context context) {
+        return context.getResources().getDisplayMetrics();
+    }
+
+
     public static int getAttrDimen(Context context, int attrRes){
         TypedValue typedValue = new TypedValue();
         context.getTheme().resolveAttribute(attrRes, typedValue, true);
-        return TypedValue.complexToDimensionPixelSize(typedValue.data, QMUIDisplayHelper.getDisplayMetrics(context));
+        return TypedValue.complexToDimensionPixelSize(typedValue.data, getDisplayMetrics(context));
     }
 
     public static void assignTextViewWithAttr(TextView textView, int attrRes){

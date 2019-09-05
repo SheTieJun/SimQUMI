@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.qmuiteam.qmui.util;
+package me.shetj.qmui.util;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -33,15 +33,16 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
-import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.FloatRange;
-import android.support.annotation.Nullable;
-import android.support.v7.content.res.AppCompatResources;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.qmuiteam.qmui.QMUILog;
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.FloatRange;
+import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
+
 
 /**
  * @author cginechen
@@ -267,7 +268,7 @@ public class QMUIDrawableHelper {
         try {
             return AppCompatResources.getDrawable(context, resVector);
         } catch (Exception e) {
-            QMUILog.d(TAG, "Error in getVectorDrawable. resVector=" + resVector + ", resName=" + context.getResources().getResourceName(resVector) + e.getMessage());
+            Log.d(TAG, "Error in getVectorDrawable. resVector=" + resVector + ", resName=" + context.getResources().getResourceName(resVector) + e.getMessage());
             return null;
         }
     }

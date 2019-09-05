@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.qmuiteam.qmui.util;
+package me.shetj.qumidemo;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -110,18 +110,6 @@ public class QMUIDisplayHelper {
         return getDisplayMetrics(context).widthPixels;
     }
 
-    /**
-     * 获取屏幕高度
-     *
-     * @return
-     */
-    public static int getScreenHeight(Context context) {
-        int screenHeight = getDisplayMetrics(context).heightPixels;
-        if(QMUIDeviceHelper.isXiaomi() && xiaomiNavigationGestureEnabled(context)){
-            screenHeight += getResourceNavHeight(context);
-        }
-        return screenHeight;
-    }
 
     /**
      * 获取屏幕的真实宽高
@@ -197,92 +185,7 @@ public class QMUIDisplayHelper {
         return size;
     }
 
-    /**
-     * 剔除挖孔屏等导致的不可用区域后的 width
-     *
-     * @param activity
-     * @return
-     */
-    public static int getUsefulScreenWidth(Activity activity) {
-        return getUsefulScreenWidth(activity, QMUINotchHelper.hasNotch(activity));
-    }
 
-    public static int getUsefulScreenWidth(View view) {
-        return getUsefulScreenWidth(view.getContext(), QMUINotchHelper.hasNotch(view));
-    }
-
-    public static int getUsefulScreenWidth(Context context, boolean hasNotch) {
-        int result = getRealScreenSize(context)[0];
-        int orientation = context.getResources().getConfiguration().orientation;
-        boolean isLandscape = orientation == Configuration.ORIENTATION_LANDSCAPE;
-        if (!hasNotch) {
-            if (isLandscape && QMUIDeviceHelper.isEssentialPhone()
-                    && Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-                // https://arstechnica.com/gadgets/2017/09/essential-phone-review-impressive-for-a-new-company-but-not-competitive/
-                // 这里说挖孔屏是状态栏高度的两倍， 但横屏好像小了一点点
-                result -= 2 * QMUIStatusBarHelper.getStatusbarHeight(context);
-            }
-            return result;
-        }
-        if (isLandscape) {
-            // 华为挖孔屏横屏时，会把整个 window 往后移动，因此，可用区域减小
-            if (QMUIDeviceHelper.isHuawei() && !QMUIDisplayHelper.huaweiIsNotchSetToShowInSetting(context)) {
-                result -= QMUINotchHelper.getNotchSizeInHuawei(context)[1];
-            }
-
-            // TODO vivo 设置-系统导航-导航手势样式-显示手势操作区域 打开的情况下，应该减去手势操作区域的高度，但无API
-            // TODO vivo 设置-显示与亮度-第三方应用显示比例 选为安全区域显示时，整个 window 会移动，应该减去移动区域，但无API
-            // TODO oppo 设置-显示与亮度-应用全屏显示-凹形区域显示控制 关闭是，整个 window 会移动，应该减去移动区域，但无API
-        }
-        return result;
-    }
-
-    /**
-     * 剔除挖孔屏等导致的不可用区域后的 height
-     *
-     * @param activity
-     * @return
-     */
-    public static int getUsefulScreenHeight(Activity activity) {
-        return getUsefulScreenHeight(activity, QMUINotchHelper.hasNotch(activity));
-    }
-
-    public static int getUsefulScreenHeight(View view) {
-        return getUsefulScreenHeight(view.getContext(), QMUINotchHelper.hasNotch(view));
-    }
-
-    private static int getUsefulScreenHeight(Context context, boolean hasNotch) {
-        int result = getRealScreenSize(context)[1];
-        int orientation = context.getResources().getConfiguration().orientation;
-        boolean isPortrait = orientation == Configuration.ORIENTATION_PORTRAIT;
-        if (!hasNotch) {
-            if (isPortrait && QMUIDeviceHelper.isEssentialPhone()
-                    && Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-                // https://arstechnica.com/gadgets/2017/09/essential-phone-review-impressive-for-a-new-company-but-not-competitive/
-                // 这里说挖孔屏是状态栏高度的两倍
-                result -= 2 * QMUIStatusBarHelper.getStatusbarHeight(context);
-            }
-            return result;
-        }
-//        if (isPortrait) {
-            // TODO vivo 设置-系统导航-导航手势样式-显示手势操作区域 打开的情况下，应该减去手势操作区域的高度，但无API
-            // TODO vivo 设置-显示与亮度-第三方应用显示比例 选为安全区域显示时，整个 window 会移动，应该减去移动区域，但无API
-            // TODO oppo 设置-显示与亮度-应用全屏显示-凹形区域显示控制 关闭是，整个 window 会移动，应该减去移动区域，但无API
-//        }
-        return result;
-    }
-
-    public static boolean isNavMenuExist(Context context) {
-        //通过判断设备是否有返回键、菜单键(不是虚拟键,是手机屏幕外的按键)来确定是否有navigation bar
-        boolean hasMenuKey = ViewConfiguration.get(context).hasPermanentMenuKey();
-        boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
-
-        if (!hasMenuKey && !hasBackKey) {
-            // 做任何你需要做的,这个设备有一个导航栏
-            return true;
-        }
-        return false;
-    }
 
     /**
      * 单位转换: dp -> px
@@ -355,52 +258,6 @@ public class QMUIDisplayHelper {
         return actionBarHeight;
     }
 
-    /**
-     * 获取状态栏高度
-     *
-     * @param context
-     * @return
-     */
-    public static int getStatusBarHeight(Context context) {
-        if(QMUIDeviceHelper.isXiaomi()){
-            int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-            if (resourceId > 0) {
-                return context.getResources().getDimensionPixelSize(resourceId);
-            }
-            return 0;
-        }
-        try {
-            Class<?> c = Class.forName("com.android.internal.R$dimen");
-            Object obj = c.newInstance();
-            Field field = c.getField("status_bar_height");
-            int x = Integer.parseInt(field.get(obj).toString());
-            if(x > 0){
-                return context.getResources().getDimensionPixelSize(x);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
-
-    /**
-     * 获取虚拟菜单的高度,若无则返回0
-     *
-     * @param context
-     * @return
-     */
-    public static int getNavMenuHeight(Context context) {
-        if (!isNavMenuExist(context)) {
-            return 0;
-        }
-        int resourceNavHeight = getResourceNavHeight(context);
-        if (resourceNavHeight >= 0) {
-            return resourceNavHeight;
-        }
-
-        // 小米 MIX 有nav bar, 而 getRealScreenSize(context)[1] - getScreenHeight(context) = 0
-        return getRealScreenSize(context)[1] - getScreenHeight(context);
-    }
 
     private static int getResourceNavHeight(Context context){
         // 小米4没有nav bar, 而 navigation_bar_height 有值
@@ -411,18 +268,6 @@ public class QMUIDisplayHelper {
         return -1;
     }
 
-    public static final boolean hasCamera(Context context) {
-        if (sHasCamera == null) {
-            PackageManager pckMgr = context.getPackageManager();
-            boolean flag = pckMgr
-                    .hasSystemFeature("android.hardware.camera.front");
-            boolean flag1 = pckMgr.hasSystemFeature("android.hardware.camera");
-            boolean flag2;
-            flag2 = flag || flag1;
-            sHasCamera = flag2;
-        }
-        return sHasCamera;
-    }
 
     /**
      * 是否有硬件menu
@@ -556,18 +401,7 @@ public class QMUIDisplayHelper {
 
 
     public static boolean isElevationSupported() {
-        return android.os.Build.VERSION.SDK_INT >= 21;
-    }
-
-    public static boolean hasNavigationBar(Context context) {
-        boolean hasNav = deviceHasNavigationBar();
-        if (!hasNav) {
-            return false;
-        }
-        if (QMUIDeviceHelper.isVivo()) {
-            return vivoNavigationGestureEnabled(context);
-        }
-        return true;
+        return Build.VERSION.SDK_INT >= 21;
     }
 
     /**
@@ -604,30 +438,7 @@ public class QMUIDisplayHelper {
     private static final String XIAOMI_DISPLAY_NOTCH_STATUS = "force_black";
     private static final String XIAOMI_FULLSCREEN_GESTURE = "force_fsg_nav_bar";
 
-    /**
-     * 获取vivo手机设置中的"navigation_gesture_on"值，判断当前系统是使用导航键还是手势导航操作
-     *
-     * @param context app Context
-     * @return false 表示使用的是虚拟导航键(NavigationBar)， true 表示使用的是手势， 默认是false
-     */
-    public static boolean vivoNavigationGestureEnabled(Context context) {
-        int val = Settings.Secure.getInt(context.getContentResolver(), VIVO_NAVIGATION_GESTURE, 0);
-        return val != 0;
-    }
 
-
-    public static boolean xiaomiNavigationGestureEnabled(Context context) {
-        int val = Settings.Global.getInt(context.getContentResolver(), XIAOMI_FULLSCREEN_GESTURE, 0);
-        return val != 0;
-    }
-
-
-    public static boolean huaweiIsNotchSetToShowInSetting(Context context) {
-        // 0: 默认
-        // 1: 隐藏显示区域
-        int result = Settings.Secure.getInt(context.getContentResolver(), HUAWAI_DISPLAY_NOTCH_STATUS, 0);
-        return result == 0;
-    }
 
     @TargetApi(17)
     public static boolean xiaomiIsNotchSetToShowInSetting(Context context) {
