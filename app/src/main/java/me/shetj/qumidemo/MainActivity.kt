@@ -1,5 +1,6 @@
 package me.shetj.qumidemo
 
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-
+        mRadius=   QMUIDisplayHelper.dp2px(this@MainActivity, 15)
         test_seekbar_alpha.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 mShadowAlpha = progress * 1f / 100
@@ -88,6 +89,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        layout_for_test.radius =   QMUIDisplayHelper.dp2px(this@MainActivity, 15)
+        shadow_color_red.setOnClickListener {
+            layout_for_test.shadowColor = Color.RED
+        }
+
+        shadow_color_blue.setOnClickListener {
+            layout_for_test.shadowColor = Color.BLUE
+        }
     }
 }
