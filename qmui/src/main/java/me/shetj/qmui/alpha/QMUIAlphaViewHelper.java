@@ -16,10 +16,9 @@
 
 package me.shetj.qmui.alpha;
 
+import android.support.annotation.NonNull;
 import android.view.View;
 
-
-import androidx.annotation.NonNull;
 
 import java.lang.ref.WeakReference;
 

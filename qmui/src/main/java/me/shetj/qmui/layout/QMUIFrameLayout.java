@@ -18,12 +18,11 @@ package me.shetj.qmui.layout;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
 
-
-import androidx.annotation.ColorInt;
-
 import me.shetj.qmui.alpha.QMUIAlphaFrameLayout;
+
 
 /**
  * @author cginechen

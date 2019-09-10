@@ -18,7 +18,6 @@ package me.shetj.qumidemo;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -29,17 +28,15 @@ import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.Settings;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Display;
-import android.view.KeyCharacterMap;
-import android.view.KeyEvent;
-import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.Window;
 import android.view.WindowManager;
 
-import java.lang.reflect.Field;
+
 import java.lang.reflect.Method;
 import java.util.Locale;
 
@@ -234,8 +231,8 @@ public class QMUIDisplayHelper {
      * @return
      */
     public static boolean hasStatusBar(Context context) {
-        if (context instanceof Activity) {
-            Activity activity = (Activity) context;
+        if (context instanceof AppCompatActivity) {
+            AppCompatActivity activity = (AppCompatActivity) context;
             WindowManager.LayoutParams attrs = activity.getWindow().getAttributes();
             return (attrs.flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != WindowManager.LayoutParams.FLAG_FULLSCREEN;
         }
@@ -370,7 +367,7 @@ public class QMUIDisplayHelper {
      *
      * @param activity
      */
-    public static void setFullScreen(Activity activity) {
+    public static void setFullScreen(AppCompatActivity activity) {
         Window window = activity.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -382,7 +379,7 @@ public class QMUIDisplayHelper {
      *
      * @param activity
      */
-    public static void cancelFullScreen(Activity activity) {
+    public static void cancelFullScreen(AppCompatActivity activity) {
         Window window = activity.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
@@ -394,7 +391,7 @@ public class QMUIDisplayHelper {
      * @param activity
      * @return
      */
-    public static boolean isFullScreen(Activity activity) {
+    public static boolean isFullScreen(AppCompatActivity activity) {
         WindowManager.LayoutParams params = activity.getWindow().getAttributes();
         return (params.flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) == WindowManager.LayoutParams.FLAG_FULLSCREEN;
     }

@@ -17,9 +17,9 @@
 package me.shetj.qmui.alpha;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatImageButton;
 import android.util.AttributeSet;
-
-import androidx.appcompat.widget.AppCompatImageButton;
+import android.widget.ImageButton;
 
 public class QMUIAlphaImageButton extends AppCompatImageButton {
 

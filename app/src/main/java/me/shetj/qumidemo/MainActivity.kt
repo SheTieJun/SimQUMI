@@ -1,8 +1,8 @@
 package me.shetj.qumidemo
 
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.widget.SeekBar
-import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import me.shetj.qmui.layout.QMUILayoutHelper
 import me.shetj.qumi.R
