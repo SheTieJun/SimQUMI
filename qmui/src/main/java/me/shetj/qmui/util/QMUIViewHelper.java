@@ -59,6 +59,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import me.shetj.qmui.R;
 
+
 /**
  * @author cginechen
  * @date 2016-03-17
@@ -69,19 +70,6 @@ public class QMUIViewHelper {
     private static final AtomicInteger sNextGeneratedId = new AtomicInteger(1);
 
 
-    private static final int[] APPCOMPAT_CHECK_ATTRS = {
-            R.attr.colorPrimary
-    };
-
-    public static void checkAppCompatTheme(Context context) {
-        TypedArray a = context.obtainStyledAttributes(APPCOMPAT_CHECK_ATTRS);
-        final boolean failed = !a.hasValue(0);
-        a.recycle();
-        if (failed) {
-            throw new IllegalArgumentException("You need to use a Theme.AppCompat theme "
-                    + "(or descendant) with the design library.");
-        }
-    }
 
     /**
      * 获取activity的根view

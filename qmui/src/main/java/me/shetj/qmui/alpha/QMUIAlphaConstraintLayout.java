@@ -19,24 +19,24 @@ package me.shetj.qmui.alpha;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import androidx.appcompat.widget.AppCompatTextView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 /**
  * 在 pressed 和 disabled 时改变 View 的透明度
  */
-public class QMUIAlphaTextView extends AppCompatTextView {
+public class QMUIAlphaConstraintLayout extends ConstraintLayout implements QMUIAlphaViewInf {
 
     private QMUIAlphaViewHelper mAlphaViewHelper;
 
-    public QMUIAlphaTextView(Context context) {
+    public QMUIAlphaConstraintLayout(Context context) {
         super(context);
     }
 
-    public QMUIAlphaTextView(Context context, AttributeSet attrs) {
+    public QMUIAlphaConstraintLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public QMUIAlphaTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public QMUIAlphaConstraintLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -64,6 +64,7 @@ public class QMUIAlphaTextView extends AppCompatTextView {
      *
      * @param changeAlphaWhenPress 是否要在 press 时改变透明度
      */
+    @Override
     public void setChangeAlphaWhenPress(boolean changeAlphaWhenPress) {
         getAlphaViewHelper().setChangeAlphaWhenPress(changeAlphaWhenPress);
     }
@@ -73,7 +74,9 @@ public class QMUIAlphaTextView extends AppCompatTextView {
      *
      * @param changeAlphaWhenDisable 是否要在 disabled 时改变透明度
      */
+    @Override
     public void setChangeAlphaWhenDisable(boolean changeAlphaWhenDisable) {
         getAlphaViewHelper().setChangeAlphaWhenDisable(changeAlphaWhenDisable);
     }
+
 }
