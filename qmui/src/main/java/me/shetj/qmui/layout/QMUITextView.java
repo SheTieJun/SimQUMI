@@ -18,8 +18,11 @@ package me.shetj.qmui.layout;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import androidx.annotation.ColorInt;
 import android.util.AttributeSet;
+import android.widget.TextView;
+
+import androidx.annotation.ColorInt;
+import androidx.appcompat.widget.AppCompatTextView;
 
 import me.shetj.qmui.alpha.QMUIAlphaButton;
 
@@ -28,28 +31,28 @@ import me.shetj.qmui.alpha.QMUIAlphaButton;
  * Created by cgspine on 2018/3/1.
  */
 
-public class QMUIButton extends QMUIAlphaButton implements IQMUILayout {
+public class QMUITextView extends AppCompatTextView implements IQMUILayout {
     private QMUILayoutHelper mLayoutHelper;
 
-    public QMUIButton(Context context) {
+    public QMUITextView(Context context) {
         super(context);
         init(context, null, 0);
     }
 
-    public QMUIButton(Context context, AttributeSet attrs) {
+    public QMUITextView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs, 0);
     }
 
-    public QMUIButton(Context context, AttributeSet attrs, int defStyleAttr) {
+    public QMUITextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs, defStyleAttr);
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
         mLayoutHelper = new QMUILayoutHelper(context, attrs, defStyleAttr, this);
-        setChangeAlphaWhenDisable(false);
-        setChangeAlphaWhenPress(false);
+//        setChangeAlphaWhenDisable(false);
+//        setChangeAlphaWhenPress(false);
     }
 
     @Override
@@ -154,7 +157,7 @@ public class QMUIButton extends QMUIAlphaButton implements IQMUILayout {
     }
 
     @Override
-    public void setRadiusAndShadow(int radius, @QMUILayoutHelper.HideRadiusSide int hideRadiusSide, int shadowElevation, final float shadowAlpha) {
+    public void setRadiusAndShadow(int radius, @HideRadiusSide int hideRadiusSide, int shadowElevation, final float shadowAlpha) {
         mLayoutHelper.setRadiusAndShadow(radius, hideRadiusSide, shadowElevation, shadowAlpha);
     }
 
@@ -169,7 +172,7 @@ public class QMUIButton extends QMUIAlphaButton implements IQMUILayout {
     }
 
     @Override
-    public void setRadius(int radius, @QMUILayoutHelper.HideRadiusSide int hideRadiusSide) {
+    public void setRadius(int radius, @HideRadiusSide int hideRadiusSide) {
         mLayoutHelper.setRadius(radius, hideRadiusSide);
     }
 
