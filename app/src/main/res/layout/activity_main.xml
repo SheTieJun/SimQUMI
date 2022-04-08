@@ -19,8 +19,10 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="40dp"
             android:orientation="vertical"
-            app:qmui_outerNormalColor="@color/qmui_config_color_separator_darken"
-            app:qmui_borderColor="@color/qmui_config_color_separator"
+            app:qmui_shadowColor="#FF0000"
+            app:qmui_radius="8dp"
+            app:qmui_shadowAlpha="0.4"
+            app:qmui_shadowElevation="8dp"
             app:qmui_showBorderOnlyBeforeL="true">
         <TextView
             android:id="@+id/alpha_tv"
@@ -92,7 +94,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:text="shadowColor(>= android 9)"/>
-                <Button
+                <me.shetj.qmui.alpha.QMUIAlphaButton
                     android:id="@+id/shadow_color_red"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

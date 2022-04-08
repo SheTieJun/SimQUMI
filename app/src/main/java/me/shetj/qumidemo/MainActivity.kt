@@ -2,10 +2,13 @@ package me.shetj.qumidemo
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
+import android.widget.RadioGroup
 import android.widget.SeekBar
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
 import me.shetj.qmui.layout.QMUILayoutHelper
+import me.shetj.qmui.layout.QMUILinearLayout
 import me.shetj.qumi.R
 
 class MainActivity : AppCompatActivity() {
@@ -21,12 +24,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        mRadius=   QMUIDisplayHelper.dp2px(this@MainActivity, 15)
-        test_seekbar_alpha.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        val layoutForTest = findViewById<QMUILinearLayout>(R.id.layout_for_test)
+        val alphaTv = findViewById<TextView>(R.id.alpha_tv)
+        val elevationTv = findViewById<TextView>(R.id.elevation_tv)
+        mRadius = QMUIDisplayHelper.dp2px(this@MainActivity, 15)
+        findViewById<SeekBar>(R.id.test_seekbar_alpha).apply {
+            progress = (mShadowAlpha * 100).toInt()
+        }.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 mShadowAlpha = progress * 1f / 100
-                alpha_tv.text = "alpha: $mShadowAlpha"
-                layout_for_test.setRadiusAndShadow(
+                alphaTv.text = "alpha: $mShadowAlpha"
+                layoutForTest.setRadiusAndShadow(
                     mRadius,
                     QMUIDisplayHelper.dp2px(this@MainActivity, mShadowElevationDp),
                     mShadowAlpha
@@ -42,11 +50,13 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        test_seekbar_elevation.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        findViewById<SeekBar>(R.id.test_seekbar_elevation).apply {
+            progress = mShadowElevationDp
+        }.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 mShadowElevationDp = progress
-                elevation_tv.text = "elevation: " + progress + "dp"
-                layout_for_test.setRadiusAndShadow(
+                elevationTv.text = "elevation: " + progress + "dp"
+                layoutForTest.setRadiusAndShadow(
                     mRadius,
                     QMUIDisplayHelper.dp2px(this@MainActivity, mShadowElevationDp), mShadowAlpha
                 )
@@ -61,40 +71,38 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        test_seekbar_alpha.progress = (mShadowAlpha * 100).toInt()
-        test_seekbar_elevation.progress = mShadowElevationDp
 
-        hide_radius_group.setOnCheckedChangeListener { _, checkedId ->
+        findViewById<RadioGroup>(R.id.hide_radius_group).setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                R.id.hide_radius_none -> layout_for_test.setRadius(
+                R.id.hide_radius_none -> layoutForTest.setRadius(
                     mRadius,
                     QMUILayoutHelper.HIDE_RADIUS_SIDE_NONE
                 )
-                R.id.hide_radius_left -> layout_for_test.setRadius(
+                R.id.hide_radius_left -> layoutForTest.setRadius(
                     mRadius,
                     QMUILayoutHelper.HIDE_RADIUS_SIDE_LEFT
                 )
-                R.id.hide_radius_top -> layout_for_test.setRadius(
+                R.id.hide_radius_top -> layoutForTest.setRadius(
                     mRadius,
                     QMUILayoutHelper.HIDE_RADIUS_SIDE_TOP
                 )
-                R.id.hide_radius_bottom -> layout_for_test.setRadius(
+                R.id.hide_radius_bottom -> layoutForTest.setRadius(
                     mRadius,
                     QMUILayoutHelper.HIDE_RADIUS_SIDE_BOTTOM
                 )
-                R.id.hide_radius_right -> layout_for_test.setRadius(
+                R.id.hide_radius_right -> layoutForTest.setRadius(
                     mRadius,
                     QMUILayoutHelper.HIDE_RADIUS_SIDE_RIGHT
                 )
             }
         }
 
-        shadow_color_red.setOnClickListener {
-            layout_for_test.shadowColor = Color.RED
+        findViewById<View>(R.id.shadow_color_red).setOnClickListener {
+            layoutForTest.shadowColor = Color.RED
         }
 
-        shadow_color_blue.setOnClickListener {
-            layout_for_test.shadowColor = Color.BLUE
+        findViewById<View>(R.id.shadow_color_blue).setOnClickListener {
+            layoutForTest.shadowColor = Color.BLUE
         }
     }
 }

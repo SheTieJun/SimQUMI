@@ -38,6 +38,7 @@
         <attr name="qmui_bottomDividerInsetRight" format="dimension"/>
         <attr name="qmui_topDividerHeight" format="dimension"/>
         <attr name="qmui_topDividerColor" format="color|reference"/>
+        <attr name="qmui_shadowColor" format="color|reference"/>
         <attr name="qmui_topDividerInsetLeft" format="dimension"/>
         <attr name="qmui_topDividerInsetRight" format="dimension"/>
         <attr name="qmui_leftDividerWidth" format="dimension"/>

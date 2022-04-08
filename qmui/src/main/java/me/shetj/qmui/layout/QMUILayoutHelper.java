@@ -200,6 +200,8 @@ public class QMUILayoutHelper implements IQMUILayout {
                     mOutlineInsetBottom = ta.getDimensionPixelSize(index, 0);
                 } else if (index == R.styleable.QMUILayout_qmui_outlineExcludePadding) {
                     mIsOutlineExcludePadding = ta.getBoolean(index, false);
+                } else if (index == R.styleable.QMUILayout_qmui_shadowColor){
+                    mShadowColor = ta.getColor(index,Color.BLACK);
                 }
             }
             ta.recycle();
