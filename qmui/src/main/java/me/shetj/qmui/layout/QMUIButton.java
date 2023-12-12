@@ -21,6 +21,7 @@ import android.graphics.Canvas;
 import androidx.annotation.ColorInt;
 import android.util.AttributeSet;
 
+import me.shetj.qmui.R;
 import me.shetj.qmui.alpha.QMUIAlphaButton;
 
 
@@ -47,7 +48,7 @@ public class QMUIButton extends QMUIAlphaButton implements IQMUILayout {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
-        mLayoutHelper = new QMUILayoutHelper(context, attrs, defStyleAttr, this);
+        mLayoutHelper = new QMUILayoutHelper(context, attrs, defStyleAttr, R.styleable.QMUIButton, this);
         setChangeAlphaWhenDisable(false);
         setChangeAlphaWhenPress(false);
     }

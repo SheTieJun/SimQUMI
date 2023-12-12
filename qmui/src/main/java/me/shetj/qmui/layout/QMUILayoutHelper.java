@@ -36,6 +36,7 @@ import android.view.ViewOutlineProvider;
 import java.lang.ref.WeakReference;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.StyleableRes;
 import androidx.core.content.ContextCompat;
 
 import me.shetj.qmui.R;
@@ -110,11 +111,11 @@ public class QMUILayoutHelper implements IQMUILayout {
     private int mOutlineInsetTop = 0;
     private int mOutlineInsetBottom = 0;
 
-    public QMUILayoutHelper(Context context, AttributeSet attrs, int defAttr, View owner) {
-        this(context, attrs, defAttr, 0, owner);
+    public QMUILayoutHelper(Context context, AttributeSet attrs, int defAttr, @StyleableRes int[] attrsC, View owner) {
+        this(context, attrs, defAttr, attrsC,0, owner);
     }
 
-    public QMUILayoutHelper(Context context, AttributeSet attrs, int defAttr, int defStyleRes, View owner) {
+    public QMUILayoutHelper(Context context, AttributeSet attrs, int defAttr, @StyleableRes int[] attrsC, int defStyleRes, View owner) {
         mContext = context;
         mOwner = new WeakReference<>(owner);
         mBottomDividerColor = mTopDividerColor =
@@ -128,7 +129,7 @@ public class QMUILayoutHelper implements IQMUILayout {
         int radius = 0, shadow = 0;
         boolean useThemeGeneralShadowElevation = false;
         if (null != attrs || defAttr != 0 || defStyleRes != 0) {
-            TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.QMUILayout, defAttr, defStyleRes);
+            TypedArray ta = context.obtainStyledAttributes(attrs, attrsC, defAttr, defStyleRes);
             int count = ta.getIndexCount();
             for (int i = 0; i < count; ++i) {
                 int index = ta.getIndex(i);

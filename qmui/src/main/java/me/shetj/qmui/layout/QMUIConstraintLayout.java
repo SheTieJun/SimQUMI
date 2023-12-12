@@ -23,6 +23,7 @@ import android.util.AttributeSet;
 
 import androidx.annotation.ColorInt;
 
+import me.shetj.qmui.R;
 import me.shetj.qmui.alpha.QMUIAlphaConstraintLayout;
 
 /**
@@ -49,7 +50,7 @@ public class QMUIConstraintLayout extends QMUIAlphaConstraintLayout implements I
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
-        mLayoutHelper = new QMUILayoutHelper(context, attrs, defStyleAttr, this);
+        mLayoutHelper = new QMUILayoutHelper(context, attrs, defStyleAttr, R.styleable.QMUIConstraintLayout, this);
         setChangeAlphaWhenPress(false);
         setChangeAlphaWhenDisable(false);
     }

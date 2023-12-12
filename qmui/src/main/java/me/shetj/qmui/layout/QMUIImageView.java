@@ -24,6 +24,8 @@ import androidx.annotation.ColorInt;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import me.shetj.qmui.R;
+
 
 /**
  * Created by cgspine on 2018/3/1.
@@ -48,7 +50,7 @@ public class QMUIImageView extends AppCompatImageView implements IQMUILayout {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
-        mLayoutHelper = new QMUILayoutHelper(context, attrs, defStyleAttr, this);
+        mLayoutHelper = new QMUILayoutHelper(context, attrs, defStyleAttr, R.styleable.QMUIImageView, this);
 //        setChangeAlphaWhenDisable(false);
 //        setChangeAlphaWhenPress(false);
     }
